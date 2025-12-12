@@ -1,0 +1,52 @@
+{
+  "project_info": {
+    "title": "Echo Substrate v4: The Apex Operational System",
+    "created": 1765579217.962111,
+    "last_updated": 1765579673.943036,
+    "total_slides": 5
+  },
+  "slides": {
+    "title_slide": "edited",
+    "problem_solution": "edited",
+    "architecture": "edited",
+    "constraints": "edited",
+    "deployment": "edited"
+  },
+  "outline": [
+    {
+      "id": "title_slide",
+      "title": "Echo Substrate v4: The Apex Operational System",
+      "summary": "Title slide introducing the production-ready operational system.",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "problem_solution",
+      "title": "From Prototype to Production: Correcting Critical Flaws",
+      "summary": "Overview of the three critical flaws in previous versions and how v4 solves them.",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "architecture",
+      "title": "Complete System Design: Eight Organs, Four Governing Physics",
+      "summary": "Detailed breakdown of the 8-organ architecture and the four new governing physics.",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "constraints",
+      "title": "How We Guarantee Trustworthiness: Four Unbreakable Laws",
+      "summary": "Explanation of the four universal constraints that govern all agent behavior.",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "deployment",
+      "title": "Ready for Production: Deployment Timeline and Success Criteria",
+      "summary": "Current status, deployment timeline, and success criteria for the next phase.",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    }
+  ]
+}

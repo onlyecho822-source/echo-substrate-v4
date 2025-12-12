@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { overflow: hidden; }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background-color: #0F172A;
+            color: #F8FAFC;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 60px 80px; /* keep top padding for title consistency */
+            overflow: hidden;
+        }
+        
+        /* Background Grid */
+        .grid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 48px;
+            font-weight: 600;
+            color: #F8FAFC;
+            margin-bottom: 10px;
+            z-index: 1;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+        
+        .subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            color: #94A3B8;
+            margin-bottom: 28px; /* reduced from 40px (-12px) */
+            z-index: 1;
+            display: flex;
+            align-items: center;
+        }
+        
+        .subtitle::before {
+            content: '';
+            display: inline-block;
+            width: 40px;
+            height: 2px;
+            background: #38BDF8;
+            margin-right: 15px;
+        }
+        
+        .constraints-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 24px; /* reduced from 30px (-6px) */
+            flex-grow: 1;
+            z-index: 1;
+            margin-bottom: 24px; /* reduced from 40px (-16px) */
+        }
+        
+        .constraint-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            padding: 26px; /* reduced from 30px (-8px per card) */
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .constraint-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #38BDF8;
+            opacity: 0.5;
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .card-icon {
+            font-size: 24px;
+            color: #38BDF8;
+            margin-right: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(56, 189, 248, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+        }
+        
+        .card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: #F8FAFC;
+        }
+        
+        .card-desc {
+            font-size: 16px;
+            color: #CBD5E1;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        
+        .enforcer {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #94A3B8;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+        }
+        
+        .enforcer::before {
+            content: 'ENFORCED BY:';
+            color: #64748B;
+            margin-right: 8px;
+        }
+        
+        .quote-box {
+            background: rgba(56, 189, 248, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 16px 30px; /* reduced vertical padding from 20px to 16px (-8px) */
+            text-align: center;
+            z-index: 1;
+            position: relative;
+        }
+        
+        .quote-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 22px;
+            font-weight: 500;
+            color: #F8FAFC;
+            font-style: italic;
+        }
+        
+        .quote-label {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0F172A;
+            padding: 0 15px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #38BDF8;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+        
+        .highlight {
+            color: #38BDF8;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="grid-bg"></div>
+        
+        <h2>How We Guarantee Trustworthiness</h2>
+        <div class="subtitle">FOUR UNBREAKABLE LAWS</div>
+        
+        <div class="constraints-grid">
+            <!-- Constraint 1 -->
+            <div class="constraint-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-coins"></i></div>
+                    <div class="card-title">No Action Without Budget</div>
+                </div>
+                <div class="card-desc">
+                    Every action has a cost. Agents must have sufficient budget before execution. Prevents resource exhaustion and self-inflicted DDoS.
+                </div>
+                <div class="enforcer">METABOLISM ORGAN</div>
+            </div>
+            
+            <!-- Constraint 2 -->
+            <div class="constraint-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-history"></i></div>
+                    <div class="card-title">No Action Without Provenance</div>
+                </div>
+                <div class="card-desc">
+                    Every action must be logged to the <span class="highlight">IMMUTABLE</span> event log. Memories cannot be reversed, only appended to.
+                </div>
+                <div class="enforcer">MEMORY ORGAN</div>
+            </div>
+            
+            <!-- Constraint 3 -->
+            <div class="constraint-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-level-up-alt"></i></div>
+                    <div class="card-title">No Escalation Without Arbitration</div>
+                </div>
+                <div class="card-desc">
+                    Agents cannot directly change system state. They can only REQUEST changes. Prevents rogue agents from taking control.
+                </div>
+                <div class="enforcer">ARBITER ORGAN</div>
+            </div>
+            
+            <!-- Constraint 4 -->
+            <div class="constraint-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-biohazard"></i></div>
+                    <div class="card-title">Subject to Immune System</div>
+                </div>
+                <div class="card-desc">
+                    All agents can be quarantined or terminated without warning. Cuts off access to Actuators and Memory.
+                </div>
+                <div class="enforcer">IMMUNE SYSTEM ORGAN</div>
+            </div>
+        </div>
+        
+        <div class="quote-box">
+            <div class="quote-label">THE NON-NEGOTIABLE LAW</div>
+            <div class="quote-text">
+                "Misuse must be visible and traceable. The state may be reversed, but the <span class="highlight">memory is eternal</span>."
+            </div>
+        </div>
+    </div>
+</body>
+</html>

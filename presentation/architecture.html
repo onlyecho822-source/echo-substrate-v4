@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { overflow: hidden; }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background-color: #0F172A;
+            color: #F8FAFC;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 60px 80px;
+            overflow: hidden;
+        }
+        
+        /* Background Grid */
+        .grid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 48px;
+            font-weight: 600;
+            color: #F8FAFC;
+            margin-bottom: 10px;
+            z-index: 1;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+        
+        .subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            color: #94A3B8;
+            margin-bottom: 20px; /* reduced from 40px to save 20px height */
+            z-index: 1;
+            display: flex;
+            align-items: center;
+        }
+        
+        .subtitle::before {
+            content: '';
+            display: inline-block;
+            width: 40px;
+            height: 2px;
+            background: #38BDF8;
+            margin-right: 15px;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-grow: 1;
+            z-index: 1;
+        }
+        
+        /* Diagram Container */
+        .diagram-container {
+            position: relative;
+            width: 600px;
+            height: 480px; /* reduced from 500px to save 20px height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .core-circle {
+            width: 150px;
+            height: 150px;
+            border: 2px solid rgba(56, 189, 248, 0.3);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: #F8FAFC;
+            background: rgba(15, 23, 42, 0.8);
+            z-index: 2;
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.1);
+        }
+        
+        .organ {
+            position: absolute;
+            width: 140px;
+            height: 80px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .organ-icon { font-size: 20px; margin-bottom: 5px; color: #94A3B8; }
+        .organ-name { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #CBD5E1; font-weight: 600; }
+        .organ-tag { font-size: 10px; color: #64748B; margin-top: 2px; }
+        
+        /* Positioning Organs */
+        .pos-1 { top: 0; left: 50%; transform: translateX(-50%); } /* Sensors */
+        .pos-2 { top: 15%; right: 5%; } /* Interpreter */
+        .pos-3 { top: 50%; right: -10%; transform: translateY(-50%); } /* Arbiter */
+        .pos-4 { bottom: 15%; right: 5%; } /* Actuators */
+        .pos-5 { bottom: 0; left: 50%; transform: translateX(-50%); } /* Immune */
+        .pos-6 { bottom: 15%; left: 5%; } /* Metabolism */
+        .pos-7 { top: 50%; left: -10%; transform: translateY(-50%); } /* Memory */
+        .pos-8 { top: 15%; left: 5%; } /* Evolution */
+        
+        /* New/Critical Organs Styling */
+        .critical {
+            border-color: #38BDF8;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+        
+        .critical .organ-icon { color: #38BDF8; }
+        .critical .organ-name { color: #38BDF8; }
+        
+        .new-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #F43F5E;
+            color: white;
+            font-size: 9px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Connecting Lines */
+        .connector {
+            position: absolute;
+            background: rgba(148, 163, 184, 0.2);
+            z-index: 1;
+        }
+        
+        /* Info Panel */
+        .info-panel {
+            width: 450px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+        }
+        
+        .panel-header {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            color: #38BDF8;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+            text-transform: uppercase;
+        }
+        
+        .physics-item {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .physics-icon {
+            color: #38BDF8;
+            margin-right: 15px;
+            margin-top: 3px;
+            font-size: 16px;
+        }
+        
+        .physics-content h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            color: #F8FAFC;
+            margin-bottom: 5px;
+        }
+        
+        .physics-content p {
+            font-size: 14px;
+            color: #94A3B8;
+            line-height: 1.4;
+        }
+        
+        .highlight-text { color: #F43F5E; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="grid-bg"></div>
+        
+        <h2>Complete System Design</h2>
+        <div class="subtitle">8 ORGANS // 4 GOVERNING PHYSICS</div>
+        
+        <div class="content-wrapper">
+            <!-- Diagram -->
+            <div class="diagram-container">
+                <!-- Connectors (Simplified visual representation) -->
+                <div class="connector" style="width: 2px; height: 100%; left: 50%; top: 0;"></div>
+                <div class="connector" style="width: 100%; height: 2px; left: 0; top: 50%;"></div>
+                <div class="connector" style="width: 100%; height: 2px; left: 0; top: 50%; transform: rotate(45deg);"></div>
+                <div class="connector" style="width: 100%; height: 2px; left: 0; top: 50%; transform: rotate(-45deg);"></div>
+                
+                <div class="core-circle">
+                    ECHO<br>CORE
+                </div>
+                
+                <!-- Organs -->
+                <div class="organ pos-1">
+                    <i class="fas fa-eye organ-icon"></i>
+                    <span class="organ-name">SENSORS</span>
+                    <span class="organ-tag">Perception</span>
+                </div>
+                
+                <div class="organ pos-2">
+                    <i class="fas fa-brain organ-icon"></i>
+                    <span class="organ-name">INTERPRETER</span>
+                    <span class="organ-tag">Sense-Making</span>
+                </div>
+                
+                <div class="organ pos-3 critical">
+                    <div class="new-badge">NEW</div>
+                    <i class="fas fa-gavel organ-icon"></i>
+                    <span class="organ-name">ARBITER</span>
+                    <span class="organ-tag">Decision</span>
+                </div>
+                
+                <div class="organ pos-4">
+                    <i class="fas fa-hand-paper organ-icon"></i>
+                    <span class="organ-name">ACTUATORS</span>
+                    <span class="organ-tag">Action</span>
+                </div>
+                
+                <div class="organ pos-5 critical">
+                    <div class="new-badge">NEW</div>
+                    <i class="fas fa-shield-virus organ-icon"></i>
+                    <span class="organ-name">IMMUNE</span>
+                    <span class="organ-tag">Safety</span>
+                </div>
+                
+                <div class="organ pos-6 critical">
+                    <div class="new-badge">NEW</div>
+                    <i class="fas fa-bolt organ-icon"></i>
+                    <span class="organ-name">METABOLISM</span>
+                    <span class="organ-tag">Resources</span>
+                </div>
+                
+                <div class="organ pos-7 critical">
+                    <div class="new-badge">NEW</div>
+                    <i class="fas fa-database organ-icon"></i>
+                    <span class="organ-name">MEMORY</span>
+                    <span class="organ-tag">Provenance</span>
+                </div>
+                
+                <div class="organ pos-8">
+                    <i class="fas fa-dna organ-icon"></i>
+                    <span class="organ-name">EVOLUTION</span>
+                    <span class="organ-tag">Adaptation</span>
+                </div>
+            </div>
+            
+            <!-- Info Panel -->
+            <div class="info-panel">
+                <div class="panel-header">The Governing Physics</div>
+                
+                <div class="physics-item">
+                    <i class="fas fa-gavel physics-icon"></i>
+                    <div class="physics-content">
+                        <h4>Arbiter (The Brain)</h4>
+                        <p>Prevents panic loops. Manages state transitions and resolves conflicts between agents.</p>
+                    </div>
+                </div>
+                
+                <div class="physics-item">
+                    <i class="fas fa-shield-virus physics-icon"></i>
+                    <div class="physics-content">
+                        <h4>Immune System (Safety)</h4>
+                        <p>Protects against internal threats. Quarantines runaway agents and rolls back damage.</p>
+                    </div>
+                </div>
+                
+                <div class="physics-item">
+                    <i class="fas fa-bolt physics-icon"></i>
+                    <div class="physics-content">
+                        <h4>Metabolism (Energy)</h4>
+                        <p>Enforces resource budgets. Prevents self-inflicted DDoS and cost overruns.</p>
+                    </div>
+                </div>
+                
+                <div class="physics-item">
+                    <i class="fas fa-database physics-icon"></i>
+                    <div class="physics-content">
+                        <h4>Memory (Provenance)</h4>
+                        <p>Immutable event log. Ensures every action is <span class="highlight-text">traceable and reversible</span>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
