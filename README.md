@@ -6,7 +6,16 @@
 
 ---
 
-## 1. The Premise: Survivorship in Complex Environments
+## 1. The Structural Null Hypothesis (First Principle)
+
+**The default analytical assumption of this system is:**
+> Observed intergenerational continuity may emerge from decentralized incentives, institutional inertia, or path dependence, **without coordination, intent, or long-term strategy by participants**.
+
+Any claim that continuity implies agency, collusion, or hidden design is outside the scope of this research unless explicitly supported by primary evidence of coordination.
+
+---
+
+## 2. The Premise: Survivorship in Complex Environments
 
 Echo Substrate v4 is an **Apex-grade operational system** designed for durable survivorship in complex, adversarial environments. It is a composite organism integrating software agents, human organizational structure, coordination layers, and governing doctrine into a secure, auditable, and lawful framework.
 
