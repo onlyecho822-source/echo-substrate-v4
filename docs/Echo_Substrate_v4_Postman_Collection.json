@@ -1,0 +1,213 @@
+
+{
+	"info": {
+		"_postman_id": "a8c3a0f0-4b3a-4b3a-8c3a-0f0a8c3a0f0a",
+		"name": "Echo Substrate v4 - Art of Proof API",
+		"description": "A collection of API endpoints for the Echo Substrate v4 integration with Art of Proof.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Cases",
+			"item": [
+				{
+					"name": "Ingest Case Documents",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"case_id\": \"a1b2c3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6\",\n  \"veteran\": {\n    \"first_name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"ssn_last_4\": \"1234\",\n    \"date_of_birth\": \"1985-01-15\",\n    \"email\": \"john.doe@example.com\"\n  },\n  \"documents\": [\n    {\n      \"document_id\": \"f1e2d3c4-b5a6-f7e8-d9c0-b1a2f3e4d5c6\",\n      \"document_type\": \"medical_record\",\n      \"file_name\": \"service_treatment_records.pdf\",\n      \"file_url\": \"https://example.com/s3/service_treatment_records.pdf\",\n      \"upload_date\": \"2025-12-12T10:00:00Z\"\n    }\n  ],\n  \"claim_type\": \"initial\",\n  \"callback_url\": \"https://artofproof.com/api/callback\",\n  \"metadata\": {\n    \"source\": \"artofproof_web\",\n    \"priority\": \"high\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/cases",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"cases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Query Case Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/v1/cases/{{substrate_case_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"cases",
+								"{{substrate_case_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Completed Claim Package",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/v1/cases/{{substrate_case_id}}/package",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"cases",
+								"{{substrate_case_id}}",
+								"package"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Case",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/v1/cases/{{substrate_case_id}}/cancel",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"cases",
+								"{{substrate_case_id}}",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Case Audit Trail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/v1/cases/{{substrate_case_id}}/audit",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"cases",
+								"{{substrate_case_id}}",
+								"audit"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Callback Simulation",
+			"item": [
+				{
+					"name": "Simulate Callback to Art of Proof",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Callback-Secret",
+								"value": "{{callback_secret}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"substrate_case_id\": \"{{substrate_case_id}}\",\n  \"original_case_id\": \"a1b2c3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6\",\n  \"status\": \"completed\",\n  \"message\": \"Case processing complete. Package is ready for review.\",\n  \"package_url\": \"{{base_url}}/v1/cases/{{substrate_case_id}}/package\",\n  \"completed_at\": \"2025-12-12T12:00:00Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{callback_url}}",
+							"host": [
+								"{{callback_url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "jwt_token",
+			"value": "your_jwt_token_here",
+			"type": "string"
+		},
+		{
+			"key": "substrate_case_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "callback_url",
+			"value": "https://artofproof.com/api/callback",
+			"type": "string"
+		},
+		{
+			"key": "callback_secret",
+			"value": "your_callback_secret_here",
+			"type": "string"
+		}
+	]
+}
