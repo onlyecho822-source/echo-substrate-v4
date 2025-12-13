@@ -92,7 +92,49 @@ This is achieved through:
 
 ---
 
-## 7. The Quick Start: Deploy in 5 Minutes
+## 7. 🚀 Quick Start (Docker)
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/onlyecho822-source/echo-substrate-v4.git
+    cd echo-substrate-v4
+    ```
+
+2.  **Configure environment:**
+    ```bash
+    cp .env.example .env
+    # Edit .env with your secrets
+    ```
+
+3.  **Start services:**
+    ```bash
+    make dev
+    ```
+
+4.  **Verify:**
+    - API is running at `http://localhost:8000`
+    - Interactive docs at `http://localhost:8000/docs`
+
+## 8. 🛠️ Local Development (Without Docker)
+
+1.  **Install dependencies:**
+    ```bash
+    make install
+    ```
+
+2.  **Run tests:**
+    ```bash
+    make test
+    ```
+
+3.  **Start the API:**
+    ```bash
+    uvicorn src.api.main:app --reload
+    ```
+
+---
+
+## 9. The Tests: Real Functional Validation
 
 ### 1. Clone the Repository
 
@@ -194,13 +236,15 @@ See the [Deployment Guide](docs/DEPLOYMENT_GUIDE.md) for detailed production dep
 
 ## 13. The License
 
-This project is provided as-is for use in the Echo ecosystem.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 14. The Contact
+## 14. Contributing & Community
 
-For questions or support, contact the development team.
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) and our [Code of Conduct](CODE_OF_CONDUCT.md).
+
+For security vulnerabilities, please see our [Security Policy](SECURITY.md).
 
 ---
 

@@ -1,0 +1,52 @@
+{
+  "project_info": {
+    "title": "Art of Proof + Echo Substrate v4: Transforming VA Disability Claims",
+    "created": 1765581228.7289197,
+    "last_updated": 1765581434.4064863,
+    "total_slides": 5
+  },
+  "slides": {
+    "title_slide": "edited",
+    "problem_opportunity": "edited",
+    "architecture_data_flow": "edited",
+    "implementation_roadmap": "edited",
+    "success_metrics": "edited"
+  },
+  "outline": [
+    {
+      "id": "title_slide",
+      "title": "Art of Proof + Echo Substrate v4: Transforming VA Disability Claims",
+      "summary": "Title slide introducing the integration plan and its goal of automating veteran benefits.",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "problem_opportunity",
+      "title": "The Problem & The Opportunity",
+      "summary": "Overview of the broken VA claims process and how Echo Substrate fixes it with automation, accuracy, and auditability.",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "architecture_data_flow",
+      "title": "A Secure, Auditable, Intelligent Pipeline",
+      "summary": "Visualizing the 8-step workflow from document ingestion to submission-ready claim package.",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "implementation_roadmap",
+      "title": "From Planning to Production in 60 Days",
+      "summary": "Detailed 4-phase implementation timeline with deliverables and critical path.",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "success_metrics",
+      "title": "Measurable Success & Business Impact",
+      "summary": "Key technical and business metrics that define success and validate the economic model.",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    }
+  ]
+}

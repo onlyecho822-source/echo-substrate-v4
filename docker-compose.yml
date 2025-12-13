@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: echo-substrate-db
+    environment:
+      POSTGRES_USER: substrate
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-changeme}
+      POSTGRES_DB: substrate
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U substrate"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: echo-substrate-api
+    environment:
+      DATABASE_URL: postgresql://substrate:${DB_PASSWORD:-changeme}@db:5432/substrate
+      JWT_SECRET: ${JWT_SECRET:-dev_secret_change_in_production}
+      CALLBACK_PRIMARY_SECRET: ${CALLBACK_PRIMARY_SECRET:-dev_callback_secret}
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./src:/app/src
+    command: uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  postgres_data:
